@@ -192,7 +192,7 @@ void atg_scs::OptimizedNsvRigidBodySystem::processConstraints(
 
     auto s1 = std::chrono::steady_clock::now();
 
-    bool solvable = false;
+    [[maybe_unused]] bool solvable = false;
     if (!m_sleSolver->supportsLimits()) {
         solvable =
             m_sleSolver->solve(

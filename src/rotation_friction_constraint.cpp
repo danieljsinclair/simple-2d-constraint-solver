@@ -18,7 +18,7 @@ void atg_scs::RotationFrictionConstraint::calculate(
         Output *output,
         SystemState *state)
 {
-    const int body = m_bodies[0]->index;
+    [[maybe_unused]] const int body = m_bodies[0]->index;
 
     output->C[0] = 0;
 

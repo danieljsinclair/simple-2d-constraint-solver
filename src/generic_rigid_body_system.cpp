@@ -178,7 +178,7 @@ void atg_scs::GenericRigidBodySystem::processConstraints(
 
     auto s1 = std::chrono::steady_clock::now();
 
-    const bool solvable =
+    [[maybe_unused]] const bool solvable =
         m_sleSolver->solve(
             m_iv.J_sparse,
             m_iv.M_inv,
