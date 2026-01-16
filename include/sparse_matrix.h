@@ -189,7 +189,7 @@ namespace atg_scs {
 
             void multiply(Matrix &b, Matrix *target) const {
                 const int b_w = b.getWidth();
-                const int b_h = b.getHeight();
+                [[maybe_unused]] const int b_h = b.getHeight();
 
                 assert(m_width == b_h);
 
