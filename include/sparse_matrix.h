@@ -165,8 +165,8 @@ namespace atg_scs {
             }
 
             void transposeMultiplyVector(Matrix &b, Matrix *target) const {
-                const int b_w = b.getWidth();
-                const int b_h = b.getHeight();
+                [[maybe_unused]] const int b_w = b.getWidth();
+                [[maybe_unused]] const int b_h = b.getHeight();
 
                 assert(b_w == 1);
                 assert(m_height == b_h);
@@ -174,7 +174,6 @@ namespace atg_scs {
                 target->initialize(1, m_width);
 
                 for (int i = 0; i < m_height; ++i) {
-                    double v = 0.0;
                     for (int k = 0; k < T_Entries; ++k) {
                         const int offset = k * T_Stride;
                         const uint8_t block = m_blockData[i * T_Entries + k];
