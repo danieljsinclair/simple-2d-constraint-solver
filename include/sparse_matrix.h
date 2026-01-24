@@ -1,13 +1,16 @@
 #ifndef ATG_SIMPLE_2D_CONSTRAINT_SOLVER_SPARSE_MATRIX_H
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_SPARSE_MATRIX_H
 
+#include "matrix.h"
+
+#include "utilities.h"
+
 #include <assert.h>
 #include <stdint.h>
 #include <string.h>
 #include "matrix.h"
 
 namespace atg_scs {
-    class Matrix;
 
     template <int T_Stride = 3, int T_Entries = 2>
     class SparseMatrix {
@@ -261,8 +264,8 @@ namespace atg_scs {
                 }
             }
 
-            inline int getWidth() const { return m_width; }
-            inline int getHeight() const { return m_height; }
+            scs_force_inline int getWidth() const { return m_width; }
+            scs_force_inline int getHeight() const { return m_height; }
 
         protected:
             double **m_matrix;
