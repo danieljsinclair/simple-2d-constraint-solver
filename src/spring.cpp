@@ -59,7 +59,6 @@ void atg_scs::Spring::apply(SystemState *state) {
     const double rel_v_x = (v_x2 - v_x1);
     const double rel_v_y = (v_y2 - v_y1);
 
-    const double v = dx * rel_v_x + dy * rel_v_y;
     const double x = l - m_restLength;
 
     state->applyForce(
