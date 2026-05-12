@@ -14,10 +14,10 @@ TEST(MatrixTests, MatrixInitialization) {
 }
 
 TEST(MatrixTests, MatrixMultiplication) {
-    const double m0_data[] = {
+    const real_t m0_data[] = {
         0.0, 1.0,
         -1.0, 0.0 };
-    const double v_data[] = {
+    const real_t v_data[] = {
         1.0,
         2.0 };
 
@@ -39,13 +39,13 @@ TEST(MatrixTests, MatrixMultiplication) {
 }
 
 TEST(MatrixTests, MatrixLeftScale) {
-    const double m0_data[] = {
+    const real_t m0_data[] = {
         -1.0, 2.0,
         3.0, -4.0 };
-    const double scale_data[] = {
+    const real_t scale_data[] = {
         1.0,
         2.0 };
-    const double scale_matrix_data[] = {
+    const real_t scale_matrix_data[] = {
         1.0, 0.0,
         0.0, 2.0 };
 
@@ -71,13 +71,13 @@ TEST(MatrixTests, MatrixLeftScale) {
 }
 
 TEST(MatrixTests, MatrixRightScale) {
-    const double m0_data[] = {
+    const real_t m0_data[] = {
         -1.0, 2.0,
         3.0, -4.0 };
-    const double scale_data[] = {
+    const real_t scale_data[] = {
         1.0,
         2.0 };
-    const double scale_matrix_data[] = {
+    const real_t scale_matrix_data[] = {
         1.0, 0.0,
         0.0, 2.0 };
 
@@ -103,10 +103,10 @@ TEST(MatrixTests, MatrixRightScale) {
 }
 
 TEST(MatrixTests, MatrixTransposeMultiplication) {
-    const double m0_data[] = {
+    const real_t m0_data[] = {
         0.0, 1.0,
         -1.0, 0.0 };
-    const double v_data[] = {
+    const real_t v_data[] = {
         1.0,
         2.0 };
 

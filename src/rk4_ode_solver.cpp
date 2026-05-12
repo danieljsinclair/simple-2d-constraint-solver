@@ -9,7 +9,7 @@ atg_scs::Rk4OdeSolver::~Rk4OdeSolver() {
     m_accumulator.destroy();
 }
 
-void atg_scs::Rk4OdeSolver::start(SystemState *initial, double dt) {
+void atg_scs::Rk4OdeSolver::start(SystemState *initial, real_t dt) {
     OdeSolver::start(initial, dt);
 
     m_initialState.copy(initial);
@@ -70,7 +70,7 @@ bool atg_scs::Rk4OdeSolver::step(SystemState *state) {
 }
 
 void atg_scs::Rk4OdeSolver::solve(SystemState *system) {
-    double stageWeight = 0.0;
+    real_t stageWeight = 0.0;
     switch (m_stage) {
         case RkStage::Stage_1: stageWeight = 1.0; break;
         case RkStage::Stage_2: stageWeight = 2.0; break;

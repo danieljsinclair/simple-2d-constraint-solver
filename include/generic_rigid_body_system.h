@@ -5,6 +5,7 @@
 
 #include "sle_solver.h"
 #include "ode_solver.h"
+#include "types.h"
 
 namespace atg_scs {
     class GenericRigidBodySystem : public RigidBodySystem {
@@ -13,7 +14,7 @@ namespace atg_scs {
             virtual ~GenericRigidBodySystem();
 
             void initialize(SleSolver *sleSolver, OdeSolver *odeSolver);
-            virtual void process(double dt, int steps = 1);
+            virtual void process(real_t dt, int steps = 1);
 
         protected:
             void processConstraints(

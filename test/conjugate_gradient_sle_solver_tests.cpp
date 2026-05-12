@@ -11,12 +11,12 @@ TEST(ConjugateGradientSleSolverTests, ConjugateGradientSleSolver) {
 TEST(ConjugateGradientSleSolverTests, ConjugateGradientSleSolver4x4) {
     atg_scs::ConjugateGradientSleSolver solver;
 
-    const double L_data[] = {
+    const real_t L_data[] = {
         500.0, 2.0, 4.0, 0.0, 0.0, 0.0,
         5.0, -700.0, 10.0, 45.0, 10.0, 20.0,
         0.0, 5.0, 10.0, 200.0, 5.0, 5.0,
         10.0, 20.0, -10.0, 30.0, 500.0, 300.0 };
-    const double R_data[] = {
+    const real_t R_data[] = {
         5.0,
         10.0,
         -1.0,

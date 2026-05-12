@@ -2,6 +2,7 @@
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_NSV_ODE_SOLVER_H
 
 #include "ode_solver.h"
+#include "types.h"
 
 namespace atg_scs {
     class NsvOdeSolver : public OdeSolver {
@@ -9,7 +10,7 @@ namespace atg_scs {
             NsvOdeSolver();
             virtual ~NsvOdeSolver();
 
-            virtual void start(SystemState *initial, double dt);
+            virtual void start(SystemState *initial, real_t dt);
             virtual bool step(SystemState *system);
             virtual void solve(SystemState *system);
             virtual void end();

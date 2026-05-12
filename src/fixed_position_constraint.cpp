@@ -13,12 +13,12 @@ atg_scs::FixedPositionConstraint::~FixedPositionConstraint() {
     /* void */
 }
 
-void atg_scs::FixedPositionConstraint::setWorldPosition(double x, double y) {
+void atg_scs::FixedPositionConstraint::setWorldPosition(real_t x, real_t y) {
     m_world_x = x;
     m_world_y = y;
 }
 
-void atg_scs::FixedPositionConstraint::setLocalPosition(double x, double y) {
+void atg_scs::FixedPositionConstraint::setLocalPosition(real_t x, real_t y) {
     m_local_x = x;
     m_local_y = y;
 }
@@ -29,28 +29,28 @@ void atg_scs::FixedPositionConstraint::calculate(
 {
     const int body = m_bodies[0]->index;
 
-    const double q1 = state->p_x[body];
-    const double q2 = state->p_y[body];
-    const double q3 = state->theta[body];
+    const real_t q1 = state->p_x[body];
+    const real_t q2 = state->p_y[body];
+    const real_t q3 = state->theta[body];
 
-    const double q3_dot = state->v_theta[body];
+    const real_t q3_dot = state->v_theta[body];
 
-    const double cos_q3 = std::cos(q3);
-    const double sin_q3 = std::sin(q3);
+    const real_t cos_q3 = std::cos(q3);
+    const real_t sin_q3 = std::sin(q3);
 
-    const double current_x = q1 + cos_q3 * m_local_x - sin_q3 * m_local_y;
-    const double current_y = q2 + sin_q3 * m_local_x + cos_q3 * m_local_y;
+    const real_t current_x = q1 + cos_q3 * m_local_x - sin_q3 * m_local_y;
+    const real_t current_y = q2 + sin_q3 * m_local_x + cos_q3 * m_local_y;
 
-    const double dx_dq1 = 1.0;
-    const double dx_dq2 = 0.0;
-    const double dx_dq3 = -sin_q3 * m_local_x - cos_q3 * m_local_y;
+    const real_t dx_dq1 = 1.0;
+    const real_t dx_dq2 = 0.0;
+    const real_t dx_dq3 = -sin_q3 * m_local_x - cos_q3 * m_local_y;
 
-    const double dy_dq1 = 0.0;
-    const double dy_dq2 = 1.0;
-    const double dy_dq3 = cos_q3 * m_local_x - sin_q3 * m_local_y;
+    const real_t dy_dq1 = 0.0;
+    const real_t dy_dq2 = 1.0;
+    const real_t dy_dq3 = cos_q3 * m_local_x - sin_q3 * m_local_y;
 
-    const double C1 = current_x - m_world_x;
-    const double C2 = current_y - m_world_y;
+    const real_t C1 = current_x - m_world_x;
+    const real_t C2 = current_y - m_world_y;
 
     output->J[0][0] = dx_dq1;
     output->J[0][1] = dx_dq2;

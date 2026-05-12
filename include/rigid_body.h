@@ -1,31 +1,33 @@
 #ifndef ATG_SIMPLE_2D_CONSTRAINT_SOLVER_RIGID_BODY_H
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_RIGID_BODY_H
 
+#include "types.h"
+
 namespace atg_scs {
     struct RigidBody {
         public:
             RigidBody();
             ~RigidBody();
 
-            void localToWorld(double x, double y, double *w_x, double *w_y);
-            void worldToLocal(double x, double y, double *l_x, double *l_y);
+            void localToWorld(real_t x, real_t y, real_t *w_x, real_t *w_y);
+            void worldToLocal(real_t x, real_t y, real_t *l_x, real_t *l_y);
 
-            double p_x;
-            double p_y;
+            real_t p_x;
+            real_t p_y;
 
-            double v_x;
-            double v_y;
+            real_t v_x;
+            real_t v_y;
 
-            double theta;
-            double v_theta;
+            real_t theta;
+            real_t v_theta;
 
-            double m;
-            double I;
+            real_t m;
+            real_t I;
 
             int index;
 
             void reset();
-            double energy() const;
+            real_t energy() const;
     };
 } /* namespace atg_scs */
 

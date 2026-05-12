@@ -2,6 +2,7 @@
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_CLUTCH_CONSTRAINT_H
 
 #include "constraint.h"
+#include "types.h"
 
 namespace atg_scs {
     class ClutchConstraint : public Constraint {
@@ -14,11 +15,11 @@ namespace atg_scs {
 
             virtual void calculate(Output *output, SystemState *system);
 
-            double m_maxTorque;
-            double m_minTorque;
+            real_t m_maxTorque;
+            real_t m_minTorque;
 
-            double m_ks;
-            double m_kd;
+            real_t m_ks;
+            real_t m_kd;
     };
 } /* namespace atg_scs */
 

@@ -49,9 +49,9 @@ bool atg_scs::GaussianEliminationSleSolver::solve(
     int h = 0, k = 0;
     while (h < m && k < n) {
         int i_max = h;
-        double maxV = fastAbs(A.get(k, i_max));
+        real_t maxV = fastAbs(A.get(k, i_max));
         for (int i = h + 1; i < m; ++i) {
-            const double v = fastAbs(A.get(k, i));
+            const real_t v = fastAbs(A.get(k, i));
             if (v > maxV) {
                 maxV = v;
                 i_max = i;
@@ -65,7 +65,7 @@ bool atg_scs::GaussianEliminationSleSolver::solve(
             A.fastRowSwap(h, i_max);
 
             for (int i = h + 1; i < m; ++i) {
-                const double f = A.get(k, i) / A.get(k, h);
+                const real_t f = A.get(k, i) / A.get(k, h);
                 A.set(k, i, 0.0);
 
                 for (int j = k + 1; j < n; ++j) {
@@ -82,11 +82,11 @@ bool atg_scs::GaussianEliminationSleSolver::solve(
         assert(false);
     }
 
-    const double x_m = A.get(n - 1, m - 1) / A.get(n - 2, m - 1);
+    const real_t x_m = A.get(n - 1, m - 1) / A.get(n - 2, m - 1);
     result->set(0, m - 1, x_m);
     for (int i = m - 2; i >= 0; --i) {
-        const double b_i = A.get(n - 1, i);
-        double sum = 0.0;
+        const real_t b_i = A.get(n - 1, i);
+        real_t sum = 0.0;
         for (int j = m - 1; j > i; --j) {
             sum += A.get(j, i) * result->get(0, j);
         }

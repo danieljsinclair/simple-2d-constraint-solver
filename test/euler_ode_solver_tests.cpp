@@ -2,9 +2,9 @@
 
 #include "../include/euler_ode_solver.h"
 
-void eulerSolve(int steps, double t, atg_scs::SystemState *state) {
+void eulerSolve(int steps, real_t t, atg_scs::SystemState *state) {
     atg_scs::EulerOdeSolver solver;
-    const double dt = t / steps;
+    const real_t dt = t / steps;
 
     for (int i = 0; i < steps; ++i) {
         solver.start(state, dt);

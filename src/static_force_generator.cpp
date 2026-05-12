@@ -23,12 +23,12 @@ void atg_scs::StaticForceGenerator::apply(SystemState *state) {
     );
 }
 
-void atg_scs::StaticForceGenerator::setForce(double f_x, double f_y) {
+void atg_scs::StaticForceGenerator::setForce(real_t f_x, real_t f_y) {
     m_f_x = f_x;
     m_f_y = f_y;
 }
 
-void atg_scs::StaticForceGenerator::setPosition(double p_x, double p_y) {
+void atg_scs::StaticForceGenerator::setPosition(real_t p_x, real_t p_y) {
     m_p_x = p_x;
     m_p_y = p_y;
 }

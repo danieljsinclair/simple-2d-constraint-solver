@@ -4,6 +4,7 @@
 #include "force_generator.h"
 
 #include "rigid_body.h"
+#include "types.h"
 
 namespace atg_scs {
     class ConstantSpeedMotor : public ForceGenerator {
@@ -13,10 +14,10 @@ namespace atg_scs {
 
             virtual void apply(SystemState *state);
 
-            double m_ks;
-            double m_kd;
-            double m_maxTorque;
-            double m_speed;
+            real_t m_ks;
+            real_t m_kd;
+            real_t m_maxTorque;
+            real_t m_speed;
 
             RigidBody *m_body0;
             RigidBody *m_body1;

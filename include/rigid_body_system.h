@@ -9,6 +9,7 @@
 #include "system_state.h"
 
 #include <vector>
+#include "types.h"
 
 namespace atg_scs {
     class RigidBodySystem {
@@ -20,7 +21,7 @@ namespace atg_scs {
             virtual ~RigidBodySystem();
 
             virtual void reset();
-            virtual void process(double dt, int steps = 1);
+            virtual void process(real_t dt, int steps = 1);
 
             void addRigidBody(RigidBody *body);
             void removeRigidBody(RigidBody *body);

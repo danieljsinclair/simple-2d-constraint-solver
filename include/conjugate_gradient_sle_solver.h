@@ -2,6 +2,7 @@
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_CONJUGATE_GRADIENT_SLE_SOLVER_H
 
 #include "sle_solver.h"
+#include "types.h"
 
 namespace atg_scs {
     class ConjugateGradientSleSolver : public SleSolver {
@@ -19,11 +20,11 @@ namespace atg_scs {
             void setMaxIterations(int maxIterations) { m_maxIterations = maxIterations; }
             int getMaxIterations() const { return m_maxIterations; }
 
-            void setMaxError(double maxError) { m_maxError = maxError; }
-            double getMaxError() const { return m_maxError; }
+            void setMaxError(real_t maxError) { m_maxError = maxError; }
+            real_t getMaxError() const { return m_maxError; }
 
-            void setMinError(double minError) { m_minError = minError; }
-            double getMinError() const { return m_minError; }
+            void setMinError(real_t minError) { m_minError = minError; }
+            real_t getMinError() const { return m_minError; }
 
         protected:
             void multiply(SparseMatrix<3> &J, Matrix &W, Matrix &x, Matrix *target);
@@ -39,8 +40,8 @@ namespace atg_scs {
                 m_A;
 
             int m_maxIterations;
-            double m_maxError;
-            double m_minError;
+            real_t m_maxError;
+            real_t m_minError;
     };
 } /* namespace atg_scs */
 

@@ -12,10 +12,10 @@ TEST(GaussSeidelSleSolverTests, GaussSeidelSleSolverSanity) {
 TEST(GaussSeidelSleSolverTests, GaussSeidelSleSolverBasic) {
     atg_scs::GaussSeidelSleSolver solver;
 
-    const double L_data[] = {
+    const real_t L_data[] = {
         500.0, 10.0,
         20.0, -600.0 };
-    const double R_data[] = {
+    const real_t R_data[] = {
         50.0,
         100.0 };
 
@@ -49,12 +49,12 @@ TEST(GaussSeidelSleSolverTests, GaussSeidelSleSolverBasic) {
 TEST(GaussSeidelSleSolverTests, GaussSeidelSleSolver4x4) {
     atg_scs::GaussSeidelSleSolver solver;
 
-    const double L_data[] = {
+    const real_t L_data[] = {
         500.0, 2.0, 3.0, 4.0,
         5.0, -700.0, 45.0, 10.0,
         0.0, 5.0, 200.0, 5.0,
         10.0, 20.0, 30.0, 500.0 };
-    const double R_data[] = {
+    const real_t R_data[] = {
         5.0,
         10.0,
         -1.0,

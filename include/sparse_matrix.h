@@ -2,6 +2,7 @@
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_SPARSE_MATRIX_H
 
 #include "matrix.h"
+#include "types.h"
 
 #include "utilities.h"
 
@@ -9,6 +10,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "matrix.h"
+#include "types.h"
 
 namespace atg_scs {
 
@@ -43,8 +45,8 @@ namespace atg_scs {
                         ? height
                         : m_capacityHeight;
 
-                    m_data = new double[(size_t)T_Stride * T_Entries * m_capacityHeight];
-                    m_matrix = new double *[m_capacityHeight];
+                    m_data = new real_t[(size_t)T_Stride * T_Entries * m_capacityHeight];
+                    m_matrix = new real_t *[m_capacityHeight];
                     m_blockData = new uint8_t[(size_t)m_capacityHeight * T_Entries];
                 }
 
@@ -112,7 +114,7 @@ namespace atg_scs {
                 m_blockData[row * T_Entries + entry] = index;
             }
 
-            inline void set(int row, int entry, int slice, double v) {
+            inline void set(int row, int entry, int slice, real_t v) {
                 assert(row >= 0 && row < m_height);
                 assert(entry >= 0 && entry < T_Entries);
                 assert(slice < T_Stride);
@@ -120,7 +122,7 @@ namespace atg_scs {
                 m_matrix[row][entry * T_Stride + slice] = v;
             }
 
-            inline double get(int row, int entry, int slice) {
+            inline real_t get(int row, int entry, int slice) {
                 assert(row >= 0 && row < m_height);
                 assert(entry >= 0 && entry < T_Entries);
                 assert(slice < T_Stride);
@@ -145,7 +147,7 @@ namespace atg_scs {
 
                 for (int i = 0; i < m_height; ++i) {
                     for (int j = 0; j < b_T.m_height; ++j) {
-                        double dot = 0;
+                        real_t dot = 0;
                         for (int k = 0; k < T_Entries; ++k) {
                             const uint8_t block0 = m_blockData[i * T_Entries + k];
                             if (block0 == 0xFF) continue;
@@ -200,7 +202,7 @@ namespace atg_scs {
 
                 for (int i = 0; i < m_height; ++i) {
                     for (int j = 0; j < b_w; ++j) {
-                        double v = 0.0;
+                        real_t v = 0.0;
                         for (int k = 0; k < T_Entries; ++k) {
                             const int offset = k * T_Stride;
                             const uint8_t block = m_blockData[i * T_Entries + k];
@@ -268,8 +270,8 @@ namespace atg_scs {
             scs_force_inline int getHeight() const { return m_height; }
 
         protected:
-            double **m_matrix;
-            double *m_data;
+            real_t **m_matrix;
+            real_t *m_data;
             uint8_t *m_blockData;
 
             int m_width;

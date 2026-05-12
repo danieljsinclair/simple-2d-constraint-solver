@@ -8,7 +8,7 @@ atg_scs::OdeSolver::~OdeSolver() {
     /* void */
 }
 
-void atg_scs::OdeSolver::start(SystemState *initial, double dt) {
+void atg_scs::OdeSolver::start(SystemState *initial, real_t dt) {
     m_dt = dt;
 }
 

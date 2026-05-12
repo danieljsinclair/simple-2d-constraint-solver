@@ -8,7 +8,7 @@ atg_scs::NsvOdeSolver::~NsvOdeSolver() {
     /* void */
 }
 
-void atg_scs::NsvOdeSolver::start(SystemState *initial, double dt) {
+void atg_scs::NsvOdeSolver::start(SystemState *initial, real_t dt) {
     OdeSolver::start(initial, dt);
 }
 

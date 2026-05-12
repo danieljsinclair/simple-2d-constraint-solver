@@ -6,7 +6,7 @@
 #include "../include/sparse_matrix.h"
 
 TEST(SparseMatrixTests, MatrixTransposeMultiplication) {
-    const double m_data[] = {
+    const real_t m_data[] = {
         0.0, 1.0, 2.0,
         -1.0, 0.0, 5.0,
         4.0, 2.0, 0.0 };
@@ -47,7 +47,7 @@ TEST(SparseMatrixTests, MatrixTransposeMultiplication) {
 }
 
 TEST(SparseMatrixTests, MatrixTransposeMultiplicationStride2) {
-    const double m_data[] = {
+    const real_t m_data[] = {
         0.0, 0.0, 1.0, 2.0, 2.0, 3.0,
         -1.0, -2.0, 0.0, 0.0, 5.0, 6.0,
         4.0, 5.0, 2.0, 3.0, 0.0, 0.0 };
@@ -75,11 +75,11 @@ TEST(SparseMatrixTests, MatrixTransposeMultiplicationStride2) {
 }
 
 TEST(SparseMatrixTests, RightScale) {
-    const double m_data[] = {
+    const real_t m_data[] = {
         0.0, 1.0, 2.0,
         -1.0, 0.0, 5.0,
         4.0, 2.0, 0.0 };
-    const double scale_data[] = {
+    const real_t scale_data[] = {
         1.0,
         -1.0,
         3.0 };
@@ -122,11 +122,11 @@ TEST(SparseMatrixTests, RightScale) {
 }
 
 TEST(SparseMatrixTests, LeftScale) {
-    const double m_data[] = {
+    const real_t m_data[] = {
         0.0, 1.0, 2.0,
         -1.0, 0.0, 5.0,
         4.0, 2.0, 0.0 };
-    const double scale_data[] = {
+    const real_t scale_data[] = {
         1.0,
         -1.0,
         3.0 };
@@ -169,11 +169,11 @@ TEST(SparseMatrixTests, LeftScale) {
 }
 
 TEST(SparseMatrixTests, RightScaleStride2) {
-    const double m_data[] = {
+    const real_t m_data[] = {
         0.0, 0.0, 1.0, 2.0, 2.0, 3.0,
         -1.0, -2.0, 0.0, 0.0, 5.0, 6.0,
         4.0, 5.0, 2.0, 3.0, 0.0, 0.0 };
-    const double scale_data[] = {
+    const real_t scale_data[] = {
         1.0,
         -1.0,
         3.0,
@@ -228,11 +228,11 @@ TEST(SparseMatrixTests, RightScaleStride2) {
 }
 
 TEST(SparseMatrixTests, SparseMultiplyingFullMatrix) {
-    const double m_data[] = {
+    const real_t m_data[] = {
         0.0, 0.0, 1.0, 2.0, 2.0, 3.0,
         -1.0, -2.0, 0.0, 0.0, 5.0, 6.0,
         4.0, 5.0, 2.0, 3.0, 0.0, 0.0 };
-    const double vectorData[] = {
+    const real_t vectorData[] = {
         1.0,
         -1.0,
         3.0,
@@ -264,11 +264,11 @@ TEST(SparseMatrixTests, SparseMultiplyingFullMatrix) {
 }
 
 TEST(SparseMatrixTests, SparseTransposeMultipleVector) {
-    const double m_data[] = {
+    const real_t m_data[] = {
         0.0, 0.0, 1.0, 2.0, 2.0, 3.0,
         -1.0, -2.0, 0.0, 0.0, 5.0, 6.0,
         4.0, 5.0, 2.0, 3.0, 0.0, 0.0 };
-    const double vectorData[] = {
+    const real_t vectorData[] = {
         1.0,
         -1.0,
         3.0 };

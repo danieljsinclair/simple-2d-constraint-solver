@@ -4,6 +4,7 @@
 #include "force_generator.h"
 
 #include "rigid_body.h"
+#include "types.h"
 
 namespace atg_scs {
     class StaticForceGenerator : public ForceGenerator {
@@ -13,14 +14,14 @@ namespace atg_scs {
 
             virtual void apply(SystemState *state);
 
-            void setForce(double f_x, double f_y);
-            void setPosition(double p_x, double p_y);
+            void setForce(real_t f_x, real_t f_y);
+            void setPosition(real_t p_x, real_t p_y);
 
-            double m_f_x;
-            double m_f_y;
+            real_t m_f_x;
+            real_t m_f_y;
 
-            double m_p_x;
-            double m_p_y;
+            real_t m_p_x;
+            real_t m_p_y;
 
             RigidBody *m_body;
     };

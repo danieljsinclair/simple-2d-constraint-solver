@@ -1,5 +1,6 @@
 #include "../include/clutch_constraint.h"
 
+#include <limits>
 #include <cmath>
 #include <cfloat>
 
@@ -7,8 +8,8 @@ atg_scs::ClutchConstraint::ClutchConstraint() : Constraint(1, 2) {
     m_ks = 10.0;
     m_kd = 1.0;
 
-    m_maxTorque = DBL_MAX;
-    m_minTorque = -DBL_MAX;
+    m_maxTorque = std::numeric_limits<real_t>::max();
+    m_minTorque = -std::numeric_limits<real_t>::max();
 }
 
 atg_scs::ClutchConstraint::~ClutchConstraint() {

@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <assert.h>
 
+using atg_scs::real_t;
+
 atg_scs::Matrix::Matrix() {
     m_matrix = nullptr;
     m_data = nullptr;
@@ -10,7 +12,7 @@ atg_scs::Matrix::Matrix() {
     m_capacityWidth = m_capacityHeight = 0;
 }
 
-atg_scs::Matrix::Matrix(int width, int height, double value) {
+atg_scs::Matrix::Matrix(int width, int height, real_t value) {
     m_matrix = nullptr;
     m_data = nullptr;
     m_width = m_height = 0;
@@ -23,7 +25,7 @@ atg_scs::Matrix::~Matrix() {
     assert(m_matrix == nullptr);
 }
 
-void atg_scs::Matrix::initialize(int width, int height, double value) {
+void atg_scs::Matrix::initialize(int width, int height, real_t value) {
     resize(width, height);
 
     for (int i = 0; i < height; ++i) {
@@ -35,7 +37,7 @@ void atg_scs::Matrix::initialize(int width, int height, double value) {
 
 void atg_scs::Matrix::initialize(int width, int height) {
     resize(width, height);
-    memset(m_data, 0, sizeof(double) * width * height);
+    memset(m_data, 0, sizeof(real_t) * width * height);
 }
 
 void atg_scs::Matrix::resize(int width, int height) {
@@ -51,8 +53,8 @@ void atg_scs::Matrix::resize(int width, int height) {
             ? height
             : m_capacityHeight;
 
-        m_data = new double[(size_t)m_capacityWidth * m_capacityHeight];
-        m_matrix = new double *[m_capacityHeight];
+        m_data = new real_t[(size_t)m_capacityWidth * m_capacityHeight];
+        m_matrix = new real_t *[m_capacityHeight];
     }
 
     m_height = height;
@@ -78,8 +80,8 @@ void atg_scs::Matrix::destroy() {
     m_capacityWidth = m_capacityHeight = 0;
 }
 
-void atg_scs::Matrix::set(const double *data) {
-    memcpy(m_data, data, sizeof(double) * m_width * m_height);
+void atg_scs::Matrix::set(const real_t *data) {
+    memcpy(m_data, data, sizeof(real_t) * m_width * m_height);
 }
 
 void atg_scs::Matrix::set(Matrix *reference) {
@@ -99,7 +101,7 @@ void atg_scs::Matrix::multiply(Matrix &b, Matrix *target) {
 
     for (int i = 0; i < m_height; ++i) {
         for (int j = 0; j < b.m_width; ++j) {
-            double v = 0.0;
+            real_t v = 0.0;
             for (int ii = 0; ii < m_width; ++ii) {
                 v += m_matrix[i][ii] * b.m_matrix[ii][j];
             }
@@ -129,7 +131,7 @@ void atg_scs::Matrix::transposeMultiply(Matrix &b, Matrix *target) {
 
     for (int i = 0; i < m_width; ++i) {
         for (int j = 0; j < b.m_width; ++j) {
-            double v = 0.0;
+            real_t v = 0.0;
             for (int ii = 0; ii < m_height; ++ii) {
                 v += m_matrix[ii][i] * b.m_matrix[ii][j];
             }
@@ -165,7 +167,7 @@ void atg_scs::Matrix::rightScale(Matrix &scale, Matrix *target) {
     }
 }
 
-void atg_scs::Matrix::scale(double s, Matrix *target) {
+void atg_scs::Matrix::scale(real_t s, Matrix *target) {
     target->resize(m_width, m_height);
 
     for (int i = 0; i < m_height; ++i) {
@@ -211,7 +213,7 @@ void atg_scs::Matrix::negate(Matrix *target) {
     }
 }
 
-bool atg_scs::Matrix::equals(Matrix &b, double err) {
+bool atg_scs::Matrix::equals(Matrix &b, real_t err) {
     if (getWidth() != b.getWidth()) return false;
     if (getHeight() != b.getHeight()) return false;
 
@@ -226,10 +228,10 @@ bool atg_scs::Matrix::equals(Matrix &b, double err) {
     return true;
 }
 
-double atg_scs::Matrix::vectorMagnitudeSquared() const {
+atg_scs::real_t atg_scs::Matrix::vectorMagnitudeSquared() const {
     assert(m_width == 1);
 
-    double mag = 0;
+    atg_scs::real_t mag = 0;
     for (int i = 0; i < m_height; ++i) {
         mag += m_matrix[0][i] * m_matrix[0][i];
     }
@@ -237,12 +239,12 @@ double atg_scs::Matrix::vectorMagnitudeSquared() const {
     return mag;
 }
 
-double atg_scs::Matrix::dot(Matrix &b) const {
+atg_scs::real_t atg_scs::Matrix::dot(Matrix &b) const {
     assert(m_width == 1);
     assert(b.m_width == 1);
     assert(b.m_height == m_height);
 
-    double result = 0;
+    atg_scs::real_t result = 0;
     for (int i = 0; i < m_height; ++i) {
         result += m_matrix[0][i] * b.m_matrix[0][i];
     }
@@ -250,7 +252,7 @@ double atg_scs::Matrix::dot(Matrix &b) const {
     return result;
 }
 
-void atg_scs::Matrix::madd(Matrix &b, double s) {
+void atg_scs::Matrix::madd(Matrix &b, real_t s) {
     assert(m_width == b.m_width);
     assert(m_height == b.m_height);
 
@@ -261,7 +263,7 @@ void atg_scs::Matrix::madd(Matrix &b, double s) {
     }
 }
 
-void atg_scs::Matrix::pmadd(Matrix &b, double s) {
+void atg_scs::Matrix::pmadd(Matrix &b, real_t s) {
     assert(m_width == b.m_width);
     assert(m_height == b.m_height);
 

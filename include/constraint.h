@@ -5,8 +5,10 @@
 #include "rigid_body.h"
 #include "matrix.h"
 #include "utilities.h"
+#include "types.h"
 
 #include <cfloat>
+#include <limits>
 
 namespace atg_scs {
     class Constraint {
@@ -15,13 +17,13 @@ namespace atg_scs {
             static constexpr int MaxBodyCount = 2;
 
             struct Output {
-                double C[MaxConstraintCount];
-                double J[MaxConstraintCount][3 * MaxBodyCount];
-                double J_dot[MaxConstraintCount][3 * MaxBodyCount];
-                double v_bias[MaxConstraintCount];
-                double limits[MaxConstraintCount][2];
-                double ks[MaxConstraintCount];
-                double kd[MaxConstraintCount];
+                real_t C[MaxConstraintCount];
+                real_t J[MaxConstraintCount][3 * MaxBodyCount];
+                real_t J_dot[MaxConstraintCount][3 * MaxBodyCount];
+                real_t v_bias[MaxConstraintCount];
+                real_t limits[MaxConstraintCount][2];
+                real_t ks[MaxConstraintCount];
+                real_t kd[MaxConstraintCount];
             };
 
         public:
@@ -35,15 +37,15 @@ namespace atg_scs {
             int m_bodyCount;
             RigidBody *m_bodies[MaxBodyCount];
 
-            double F_x[MaxConstraintCount][MaxBodyCount];
-            double F_y[MaxConstraintCount][MaxBodyCount];
-            double F_t[MaxConstraintCount][MaxBodyCount];
+            real_t F_x[MaxConstraintCount][MaxBodyCount];
+            real_t F_y[MaxConstraintCount][MaxBodyCount];
+            real_t F_t[MaxConstraintCount][MaxBodyCount];
 
         protected:
             inline void noLimits(Output *output) {
                 for (int i = 0; i < MaxConstraintCount; ++i) {
-                    output->limits[i][0] = -DBL_MAX;
-                    output->limits[i][1] = DBL_MAX;
+                    output->limits[i][0] = -std::numeric_limits<real_t>::max();
+                    output->limits[i][1] = std::numeric_limits<real_t>::max();
                 }
             }
 

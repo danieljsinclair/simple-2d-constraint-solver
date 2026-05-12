@@ -1,6 +1,6 @@
 #include "../include/utilities.h"
 
-void atg_scs::freeArray(double *&data) {
+void atg_scs::freeArray(real_t *&data) {
     delete[] data;
     data = nullptr;
 }

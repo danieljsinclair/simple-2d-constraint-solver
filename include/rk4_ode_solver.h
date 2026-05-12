@@ -2,6 +2,7 @@
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_RK4_ODE_SOLVER_H
 
 #include "ode_solver.h"
+#include "types.h"
 
 namespace atg_scs {
     class Rk4OdeSolver : public OdeSolver {
@@ -19,7 +20,7 @@ namespace atg_scs {
             Rk4OdeSolver();
             virtual ~Rk4OdeSolver();
 
-            virtual void start(SystemState *initial, double dt);
+            virtual void start(SystemState *initial, real_t dt);
             virtual bool step(SystemState *system);
             virtual void solve(SystemState *system);
             virtual void end();

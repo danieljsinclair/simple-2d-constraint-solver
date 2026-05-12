@@ -21,80 +21,80 @@ void atg_scs::RollingConstraint::calculate(
     const int baseBody = m_bodies[0]->index;
     const int rollingBody = m_bodies[1]->index;
 
-    const double q1 = state->p_x[baseBody];
-    const double q2 = state->p_y[baseBody];
-    const double q3 = state->theta[baseBody];
+    const real_t q1 = state->p_x[baseBody];
+    const real_t q2 = state->p_y[baseBody];
+    const real_t q3 = state->theta[baseBody];
 
-    const double q4 = state->p_x[rollingBody];
-    const double q5 = state->p_y[rollingBody];
-    const double q6 = state->theta[rollingBody];
+    const real_t q4 = state->p_x[rollingBody];
+    const real_t q5 = state->p_y[rollingBody];
+    const real_t q6 = state->theta[rollingBody];
 
-    const double q1_dot = state->v_x[baseBody];
-    const double q2_dot = state->v_y[baseBody];
-    const double q3_dot = state->v_theta[baseBody];
+    const real_t q1_dot = state->v_x[baseBody];
+    const real_t q2_dot = state->v_y[baseBody];
+    const real_t q3_dot = state->v_theta[baseBody];
 
-    const double q4_dot = state->v_x[rollingBody];
-    const double q5_dot = state->v_y[rollingBody];
+    const real_t q4_dot = state->v_x[rollingBody];
+    const real_t q5_dot = state->v_y[rollingBody];
 
-    const double cos_q3 = std::cos(q3);
-    const double sin_q3 = std::sin(q3);
+    const real_t cos_q3 = std::cos(q3);
+    const real_t sin_q3 = std::sin(q3);
 
-    const double origin_x = q1 + cos_q3 * m_local_x - sin_q3 * m_local_y;
-    const double origin_y = q2 + sin_q3 * m_local_x + cos_q3 * m_local_y;
-    const double dx = cos_q3 * m_dx - sin_q3 * m_dy;
-    const double dy = sin_q3 * m_dx + cos_q3 * m_dy;
+    const real_t origin_x = q1 + cos_q3 * m_local_x - sin_q3 * m_local_y;
+    const real_t origin_y = q2 + sin_q3 * m_local_x + cos_q3 * m_local_y;
+    const real_t dx = cos_q3 * m_dx - sin_q3 * m_dy;
+    const real_t dy = sin_q3 * m_dx + cos_q3 * m_dy;
 
-    const double dx_dot = -sin_q3 * q3_dot * m_dx - cos_q3 * q3_dot * m_dy;
-    const double dy_dot = cos_q3 * q3_dot * m_dx - sin_q3 * q3_dot * m_dy;
+    const real_t dx_dot = -sin_q3 * q3_dot * m_dx - cos_q3 * q3_dot * m_dy;
+    const real_t dy_dot = cos_q3 * q3_dot * m_dx - sin_q3 * q3_dot * m_dy;
 
-    const double perp_x = -dy;
-    const double perp_y = dx;
+    const real_t perp_x = -dy;
+    const real_t perp_y = dx;
 
-    const double delta_x = q4 - origin_x;
-    const double delta_y = q5 - origin_y;
+    const real_t delta_x = q4 - origin_x;
+    const real_t delta_y = q5 - origin_y;
 
-    const double delta_x_dot =
+    const real_t delta_x_dot =
         q4_dot - (q1_dot - sin_q3 * q3_dot * m_local_x - cos_q3 * q3_dot * m_local_y);
-    const double delta_y_dot =
+    const real_t delta_y_dot =
         q5_dot - (q2_dot + cos_q3 * q3_dot * m_local_x - sin_q3 * q3_dot * m_local_y);
 
-    const double s = delta_x * dx + delta_y * dy;
+    const real_t s = delta_x * dx + delta_y * dy;
 
-    const double C0 = -q6 - s * m_radius;
-    const double C1 = m_radius - (perp_x * delta_x + perp_y * delta_y);
+    const real_t C0 = -q6 - s * m_radius;
+    const real_t C1 = m_radius - (perp_x * delta_x + perp_y * delta_y);
 
-    const double d_origin_x_dq3 = -sin_q3 * m_local_x - cos_q3 * m_local_y;
-    const double d_origin_y_dq3 = cos_q3 * m_local_x - sin_q3 * m_local_y;
+    const real_t d_origin_x_dq3 = -sin_q3 * m_local_x - cos_q3 * m_local_y;
+    const real_t d_origin_y_dq3 = cos_q3 * m_local_x - sin_q3 * m_local_y;
 
-    const double d_delta_x_dq1 = -1;
-    const double d_delta_x_dq3 = -d_origin_x_dq3;
-    const double d_delta_x_dq4 = 1;
+    const real_t d_delta_x_dq1 = -1;
+    const real_t d_delta_x_dq3 = -d_origin_x_dq3;
+    const real_t d_delta_x_dq4 = 1;
 
-    const double d_delta_y_dq2 = -1;
-    const double d_delta_y_dq3 = -d_origin_y_dq3;
-    const double d_delta_y_dq5 = 1;
+    const real_t d_delta_y_dq2 = -1;
+    const real_t d_delta_y_dq3 = -d_origin_y_dq3;
+    const real_t d_delta_y_dq5 = 1;
 
-    const double d_dx_dq3 = -dy;
-    const double d_dy_dq3 = dx;
+    const real_t d_dx_dq3 = -dy;
+    const real_t d_dy_dq3 = dx;
 
-    const double d_dx_dq3_dot = -cos_q3 * q3_dot * m_dx + sin_q3 * q3_dot * m_dy;
-    const double d_dy_dq3_dot = -sin_q3 * q3_dot * m_dx - cos_q3 * q3_dot * m_dy;
-    const double d_delta_x_dq3_dot =
+    const real_t d_dx_dq3_dot = -cos_q3 * q3_dot * m_dx + sin_q3 * q3_dot * m_dy;
+    const real_t d_dy_dq3_dot = -sin_q3 * q3_dot * m_dx - cos_q3 * q3_dot * m_dy;
+    const real_t d_delta_x_dq3_dot =
         cos_q3 * q3_dot * m_local_x - sin_q3 * q3_dot * m_local_y;
-    const double d_delta_y_dq3_dot =
+    const real_t d_delta_y_dq3_dot =
         sin_q3 * q3_dot * m_local_x + cos_q3 * q3_dot * m_local_y;
 
-    const double ds_dq1 = d_delta_x_dq1 * dx;
-    const double ds_dq2 = d_delta_y_dq2 * dy;
-    const double ds_dq3 =
+    const real_t ds_dq1 = d_delta_x_dq1 * dx;
+    const real_t ds_dq2 = d_delta_y_dq2 * dy;
+    const real_t ds_dq3 =
         (d_delta_x_dq3 * dx + delta_x * d_dx_dq3) +
         (d_delta_y_dq3 * dy + delta_y * d_dy_dq3);
 
-    const double ds_dq1_dot =
+    const real_t ds_dq1_dot =
         d_delta_x_dq1 * dx_dot;
-    const double ds_dq2_dot =
+    const real_t ds_dq2_dot =
         d_delta_y_dq2 * dy_dot;
-    const double ds_dq3_dot =
+    const real_t ds_dq3_dot =
         (d_delta_x_dq3_dot * dx + d_delta_x_dq3 * dx_dot) +
         (delta_x_dot * d_dx_dq3 + delta_x * d_dx_dq3_dot) +
         (d_delta_y_dq3_dot * dy + d_delta_y_dq3 * dy_dot) +

@@ -20,29 +20,29 @@ void atg_scs::LineConstraint::calculate(
 {
     const int body = m_bodies[0]->index;
 
-    const double q1 = state->p_x[body];
-    const double q2 = state->p_y[body];
-    const double q3 = state->theta[body];
+    const real_t q1 = state->p_x[body];
+    const real_t q2 = state->p_y[body];
+    const real_t q3 = state->theta[body];
 
-    const double q3_dot = state->v_theta[body];
+    const real_t q3_dot = state->v_theta[body];
 
-    const double cos_q3 = std::cos(q3);
-    const double sin_q3 = std::sin(q3);
+    const real_t cos_q3 = std::cos(q3);
+    const real_t sin_q3 = std::sin(q3);
 
-    const double bodyX = q1 + cos_q3 * m_local_x - sin_q3 * m_local_y;
-    const double bodyY = q2 + sin_q3 * m_local_x + cos_q3 * m_local_y;
+    const real_t bodyX = q1 + cos_q3 * m_local_x - sin_q3 * m_local_y;
+    const real_t bodyY = q2 + sin_q3 * m_local_x + cos_q3 * m_local_y;
 
-    const double perpX = -m_dy;
-    const double perpY = m_dx;
+    const real_t perpX = -m_dy;
+    const real_t perpY = m_dx;
 
-    const double deltaX = bodyX - m_p0_x;
-    const double deltaY = bodyY - m_p0_y;
+    const real_t deltaX = bodyX - m_p0_x;
+    const real_t deltaY = bodyY - m_p0_y;
 
-    const double C = deltaX * perpX + deltaY * perpY;
+    const real_t C = deltaX * perpX + deltaY * perpY;
 
-    const double dC_dq1 = 1.0 * perpX;
-    const double dC_dq2 = 1.0 * perpY;
-    const double dC_dq3 =
+    const real_t dC_dq1 = 1.0 * perpX;
+    const real_t dC_dq2 = 1.0 * perpY;
+    const real_t dC_dq3 =
         (-sin_q3 * m_local_x - cos_q3 * m_local_y) * perpX +
         (cos_q3 * m_local_x - sin_q3 * m_local_y) * perpY;
 

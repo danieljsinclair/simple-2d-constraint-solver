@@ -53,8 +53,8 @@ bool atg_scs::ConjugateGradientSleSolver::solve(
     for (int k = 0; k < m_maxIterations; ++k) {
         multiply(J, W, m_p, &m_Ap);
 
-        const double rk_mag = m_r.vectorMagnitudeSquared();
-        const double alpha = rk_mag / m_p.dot(m_Ap);
+        const real_t rk_mag = m_r.vectorMagnitudeSquared();
+        const real_t alpha = rk_mag / m_p.dot(m_Ap);
         m_x.madd(m_p, alpha);
         m_r.madd(m_Ap, -alpha);
 
@@ -62,8 +62,8 @@ bool atg_scs::ConjugateGradientSleSolver::solve(
             goto succeeded;
         }
 
-        const double rk1_mag = m_r.vectorMagnitudeSquared();
-        const double beta = rk1_mag / rk_mag;
+        const real_t rk1_mag = m_r.vectorMagnitudeSquared();
+        const real_t beta = rk1_mag / rk_mag;
         m_p.pmadd(m_r, beta);
     }
 
@@ -93,8 +93,8 @@ bool atg_scs::ConjugateGradientSleSolver::sufficientlySmall(
     Matrix &target) const
 {
     for (int i = 0; i < x.getHeight(); ++i) {
-        const double err = x.get(0, i);
-        const double t = target.get(0, i);
+        const real_t err = x.get(0, i);
+        const real_t t = target.get(0, i);
         if (std::abs(err) > std::fmax(std::abs(m_maxError * t), m_minError)) {
             return false;
         }

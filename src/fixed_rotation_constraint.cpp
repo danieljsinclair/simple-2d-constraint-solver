@@ -13,8 +13,8 @@ atg_scs::FixedRotationConstraint::~FixedRotationConstraint() {
 void atg_scs::FixedRotationConstraint::calculate(Output *output, SystemState *state) {
     const int body = m_bodies[0]->index;
 
-    const double q3 = state->theta[body];
-    const double C = q3 - m_rotation;
+    const real_t q3 = state->theta[body];
+    const real_t C = q3 - m_rotation;
 
     output->J[0][0] = 0;
     output->J[0][1] = 0;

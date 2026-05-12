@@ -8,7 +8,7 @@ atg_scs::EulerOdeSolver::~EulerOdeSolver() {
     /* void */
 }
 
-void atg_scs::EulerOdeSolver::start(SystemState *initial, double dt) {
+void atg_scs::EulerOdeSolver::start(SystemState *initial, real_t dt) {
     OdeSolver::start(initial, dt);
 }
 

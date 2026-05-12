@@ -21,7 +21,7 @@ void atg_scs::GenericRigidBodySystem::initialize(
     m_iv.lambda.initialize(0, 0);
 }
 
-void atg_scs::GenericRigidBodySystem::process(double dt, int steps) {
+void atg_scs::GenericRigidBodySystem::process(real_t dt, int steps) {
     long long
         odeSolveTime = 0,
         constraintSolveTime = 0,
@@ -226,8 +226,8 @@ void atg_scs::GenericRigidBodySystem::processConstraints(
     }
 
     for (int i = 0; i < n; ++i) {
-        const double invMass = m_iv.M_inv.get(0, i * 3 + 0);
-        const double invInertia = m_iv.M_inv.get(0, i * 3 + 2);
+        const real_t invMass = m_iv.M_inv.get(0, i * 3 + 0);
+        const real_t invInertia = m_iv.M_inv.get(0, i * 3 + 2);
 
         m_state.a_x[i] *= invMass;
         m_state.a_y[i] *= invMass;

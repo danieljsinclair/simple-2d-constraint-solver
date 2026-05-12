@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+using atg_scs::real_t;
+
 atg_scs::Spring::Spring() {
     m_restLength = 1.0;
     m_ks = 0;
@@ -20,11 +22,11 @@ atg_scs::Spring::~Spring() {
 void atg_scs::Spring::apply(SystemState *state) {
     if (m_body1 == nullptr || m_body2 == nullptr) return;
 
-    double x1, y1;
-    double x2, y2;
+    real_t x1, y1;
+    real_t x2, y2;
 
-    double v_x1 = 0, v_y1 = 0;
-    double v_x2 = 0, v_y2 = 0;
+    real_t v_x1 = 0, v_y1 = 0;
+    real_t v_x2 = 0, v_y2 = 0;
 
     if (m_body1->index != -1) {
         state->localToWorld(m_p1_x, m_p1_y, &x1, &y1, m_body1->index);
@@ -42,10 +44,10 @@ void atg_scs::Spring::apply(SystemState *state) {
         m_body2->localToWorld(m_p2_x, m_p2_y, &x2, &y2);
     }
 
-    double dx = x2 - x1;
-    double dy = y2 - y1;
+    real_t dx = x2 - x1;
+    real_t dy = y2 - y1;
 
-    const double l = std::sqrt(dx * dx + dy * dy);
+    const real_t l = std::sqrt(dx * dx + dy * dy);
 
     if (std::abs(l) >= 1E-2) {
         dx /= l;
@@ -56,10 +58,10 @@ void atg_scs::Spring::apply(SystemState *state) {
         dy = 0.0;
     }
 
-    const double rel_v_x = (v_x2 - v_x1);
-    const double rel_v_y = (v_y2 - v_y1);
+    const real_t rel_v_x = (v_x2 - v_x1);
+    const real_t rel_v_y = (v_y2 - v_y1);
 
-    const double x = l - m_restLength;
+    const real_t x = l - m_restLength;
 
     state->applyForce(
         m_p1_x,
@@ -78,26 +80,26 @@ void atg_scs::Spring::apply(SystemState *state) {
     );
 }
 
-void atg_scs::Spring::getEnds(double *x_1, double *y_1, double *x_2, double *y_2) {
+void atg_scs::Spring::getEnds(real_t *x_1, real_t *y_1, real_t *x_2, real_t *y_2) {
     if (m_body1 == nullptr || m_body2 == nullptr) return;
 
     m_body1->localToWorld(m_p1_x, m_p1_y, x_1, y_1);
     m_body2->localToWorld(m_p2_x, m_p2_y, x_2, y_2);
 }
 
-double atg_scs::Spring::energy() const {
+atg_scs::real_t atg_scs::Spring::energy() const {
     if (m_body1 == nullptr || m_body2 == nullptr) return 0;
 
-    double x1, y1;
-    double x2, y2;
+    real_t x1, y1;
+    real_t x2, y2;
 
     m_body1->localToWorld(m_p1_x, m_p1_y, &x1, &y1);
     m_body2->localToWorld(m_p2_x, m_p2_y, &x2, &y2);
 
-    const double dx = x2 - x1;
-    const double dy = y2 - y1;
+    const real_t dx = x2 - x1;
+    const real_t dy = y2 - y1;
 
-    const double l = std::sqrt(dx * dx + dy * dy);
+    const real_t l = std::sqrt(dx * dx + dy * dy);
 
     return 0.5 * m_ks * (l - m_restLength) * (l - m_restLength);
 }

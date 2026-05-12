@@ -1,6 +1,8 @@
 #ifndef ATG_SIMPLE_2D_CONSTRAINT_SOLVER_UTILITIES_H
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_UTILITIES_H
 
+#include "types.h"
+
 #if defined(__APPLE__)
 #define scs_force_inline inline
 #else
@@ -8,7 +10,7 @@
 #endif
 
 namespace atg_scs {
-    void freeArray(double *&data);
+    void freeArray(real_t *&data);
     void freeArray(int *&data);
 } /* atg_scs */
 

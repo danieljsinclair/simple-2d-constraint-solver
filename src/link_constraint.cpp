@@ -1,5 +1,7 @@
 #include "../include/link_constraint.h"
+#include "../../../../include/fast_math.h"
 
+#include <limits>
 #include <cmath>
 
 atg_scs::LinkConstraint::LinkConstraint() : Constraint(2, 2) {
@@ -7,7 +9,7 @@ atg_scs::LinkConstraint::LinkConstraint() : Constraint(2, 2) {
     m_local_x_2 = m_local_y_2 = 0.0;
     m_ks = 10.0;
     m_kd = 1.0;
-    m_maxForce = DBL_MAX;
+    m_maxForce = std::numeric_limits<real_t>::max();
 }
 
 atg_scs::LinkConstraint::~LinkConstraint() {
@@ -21,31 +23,31 @@ void atg_scs::LinkConstraint::calculate(
     const int body = m_bodies[0]->index;
     const int linkedBody = m_bodies[1]->index;
 
-    const double q1 = state->p_x[body];
-    const double q2 = state->p_y[body];
-    const double q3 = state->theta[body];
+    const real_t q1 = state->p_x[body];
+    const real_t q2 = state->p_y[body];
+    const real_t q3 = state->theta[body];
 
-    const double q4 = state->p_x[linkedBody];
-    const double q5 = state->p_y[linkedBody];
-    const double q6 = state->theta[linkedBody];
+    const real_t q4 = state->p_x[linkedBody];
+    const real_t q5 = state->p_y[linkedBody];
+    const real_t q6 = state->theta[linkedBody];
 
-    const double q3_dot = state->v_theta[body];
-    const double q6_dot = state->v_theta[linkedBody];
+    const real_t q3_dot = state->v_theta[body];
+    const real_t q6_dot = state->v_theta[linkedBody];
 
-    const double cos_q3 = std::cos(q3);
-    const double sin_q3 = std::sin(q3);
+    const real_t cos_q3 = fast_math::cos(q3);
+    const real_t sin_q3 = fast_math::sin(q3);
 
-    const double cos_q6 = std::cos(q6);
-    const double sin_q6 = std::sin(q6);
+    const real_t cos_q6 = fast_math::cos(q6);
+    const real_t sin_q6 = fast_math::sin(q6);
 
-    const double bodyX = q1 + cos_q3 * m_local_x_1 - sin_q3 * m_local_y_1;
-    const double bodyY = q2 + sin_q3 * m_local_x_1 + cos_q3 * m_local_y_1;
+    const real_t bodyX = q1 + cos_q3 * m_local_x_1 - sin_q3 * m_local_y_1;
+    const real_t bodyY = q2 + sin_q3 * m_local_x_1 + cos_q3 * m_local_y_1;
 
-    const double linkedBodyX = q4 + cos_q6 * m_local_x_2 - sin_q6 * m_local_y_2;
-    const double linkedBodyY = q5 + sin_q6 * m_local_x_2 + cos_q6 * m_local_y_2;
+    const real_t linkedBodyX = q4 + cos_q6 * m_local_x_2 - sin_q6 * m_local_y_2;
+    const real_t linkedBodyY = q5 + sin_q6 * m_local_x_2 + cos_q6 * m_local_y_2;
 
-    const double C1 = bodyX - linkedBodyX;
-    const double C2 = bodyY - linkedBodyY;
+    const real_t C1 = bodyX - linkedBodyX;
+    const real_t C2 = bodyY - linkedBodyY;
 
     output->J[0][0] = 1.0;
     output->J[0][1] = 0.0;
@@ -100,12 +102,12 @@ void atg_scs::LinkConstraint::calculate(
     output->limits[1][1] = m_maxForce;
 }
 
-void atg_scs::LinkConstraint::setLocalPosition1(double x, double y) {
+void atg_scs::LinkConstraint::setLocalPosition1(real_t x, real_t y) {
     m_local_x_1 = x;
     m_local_y_1 = y;
 }
 
-void atg_scs::LinkConstraint::setLocalPosition2(double x, double y) {
+void atg_scs::LinkConstraint::setLocalPosition2(real_t x, real_t y) {
     m_local_x_2 = x;
     m_local_y_2 = y;
 }

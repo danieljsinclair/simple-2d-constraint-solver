@@ -4,6 +4,7 @@
 #include "force_generator.h"
 
 #include "rigid_body.h"
+#include "types.h"
 
 namespace atg_scs {
     class GravityForceGenerator : public ForceGenerator {
@@ -13,7 +14,7 @@ namespace atg_scs {
 
             virtual void apply(SystemState *state);
 
-            double m_g;
+            real_t m_g;
     };
 } /* namespace atg_scs */
 

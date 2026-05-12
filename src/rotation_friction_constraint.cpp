@@ -1,13 +1,14 @@
 #include "../include/rotation_friction_constraint.h"
 
+#include <limits>
 #include <cfloat>
 
 atg_scs::RotationFrictionConstraint::RotationFrictionConstraint() : Constraint(1, 1) {
     m_ks = 10.0;
     m_kd = 1.0;
 
-    m_maxTorque = DBL_MAX;
-    m_minTorque = -DBL_MAX;
+    m_maxTorque = std::numeric_limits<real_t>::max();
+    m_minTorque = -std::numeric_limits<real_t>::max();
 }
 
 atg_scs::RotationFrictionConstraint::~RotationFrictionConstraint() {

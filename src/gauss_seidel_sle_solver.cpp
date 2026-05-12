@@ -3,6 +3,8 @@
 #include <cmath>
 #include <assert.h>
 
+using atg_scs::real_t;
+
 atg_scs::GaussSeidelSleSolver::GaussSeidelSleSolver()
     : atg_scs::SleSolver(true)
 {
@@ -36,7 +38,7 @@ bool atg_scs::GaussSeidelSleSolver::solve(
     m_reg.multiplyTranspose(J, &m_M);
 
     for (int i = 0; i < m_maxIterations; ++i) {
-        const double maxDelta = solveIteration(
+        const real_t maxDelta = solveIteration(
                 m_M,
                 right,
                 result,
@@ -71,7 +73,7 @@ bool atg_scs::GaussSeidelSleSolver::solveWithLimits(
     m_reg.multiplyTranspose(J, &m_M);
 
     for (int i = 0; i < m_maxIterations; ++i) {
-        const double maxDelta = solveIteration(
+        const real_t maxDelta = solveIteration(
             m_M,
             right,
             limits,
@@ -86,17 +88,17 @@ bool atg_scs::GaussSeidelSleSolver::solveWithLimits(
     return false;
 }
 
-double atg_scs::GaussSeidelSleSolver::solveIteration(
+atg_scs::real_t atg_scs::GaussSeidelSleSolver::solveIteration(
         Matrix &left,
         Matrix &right,
         Matrix *k_next,
         Matrix *k)
 {
-    double maxDifference = 0.0;
+    atg_scs::real_t maxDifference = 0.0;
     const int n = k->getHeight();
 
     for (int i = 0; i < n; ++i) {
-        double s0 = 0.0, s1 = 0.0;
+        real_t s0 = 0.0, s1 = 0.0;
         for (int j = 0; j < i; ++j) {
             s0 += left.get(j, i) * k_next->get(0, j);
         }
@@ -105,11 +107,11 @@ double atg_scs::GaussSeidelSleSolver::solveIteration(
             s1 += left.get(j, i) * k->get(0, j);
         }
 
-        const double k_next_i =
+        const real_t k_next_i =
             (1 / left.get(i, i)) * (right.get(0, i) - s0 - s1);
 
-        const double min_k = std::fmax(1E-3, k->get(0, i));
-        const double delta = (std::abs(k_next_i) - min_k) / min_k;
+        const real_t min_k = std::fmax(1E-3, k->get(0, i));
+        const real_t delta = (std::abs(k_next_i) - min_k) / min_k;
         maxDifference = (delta > maxDifference)
             ? delta
             : maxDifference;
@@ -120,18 +122,18 @@ double atg_scs::GaussSeidelSleSolver::solveIteration(
     return maxDifference;
 }
 
-double atg_scs::GaussSeidelSleSolver::solveIteration(
+atg_scs::real_t atg_scs::GaussSeidelSleSolver::solveIteration(
         Matrix &left,
         Matrix &right,
         Matrix &limits,
         Matrix *k_next,
         Matrix *k)
 {
-    double maxDifference = 0.0;
+    atg_scs::real_t maxDifference = 0.0;
     const int n = k->getHeight();
 
     for (int i = 0; i < n; ++i) {
-        double s0 = 0.0, s1 = 0.0;
+        real_t s0 = 0.0, s1 = 0.0;
         for (int j = 0; j < i; ++j) {
             s0 += left.get(j, i) * k_next->get(0, j);
         }
@@ -140,15 +142,15 @@ double atg_scs::GaussSeidelSleSolver::solveIteration(
             s1 += left.get(j, i) * k->get(0, j);
         }
 
-        const double k_next_i =
+        const real_t k_next_i =
             (1 / left.get(i, i)) * (right.get(0, i) - s0 - s1);
 
-        const double limitMin = limits.get(0, i);
-        const double limitMax = limits.get(1, i);
-        const double x = std::fmax(limitMin, std::fmin(limitMax, k_next_i));
+        const real_t limitMin = limits.get(0, i);
+        const real_t limitMax = limits.get(1, i);
+        const real_t x = std::fmax(limitMin, std::fmin(limitMax, k_next_i));
 
-        const double min_k = std::fmax(1E-3, std::abs(k->get(0, i)));
-        const double delta = std::abs(x - k->get(0, i)) / min_k;
+        const real_t min_k = std::fmax(1E-3, std::abs(k->get(0, i)));
+        const real_t delta = std::abs(x - k->get(0, i)) / min_k;
         maxDifference = (delta > maxDifference)
             ? delta
             : maxDifference;

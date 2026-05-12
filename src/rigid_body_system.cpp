@@ -34,7 +34,7 @@ void atg_scs::RigidBodySystem::reset() {
     m_forceGenerators.clear();
 }
 
-void atg_scs::RigidBodySystem::process(double dt, int steps) {
+void atg_scs::RigidBodySystem::process(real_t dt, int steps) {
     /* void */
 }
 

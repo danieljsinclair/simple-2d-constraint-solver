@@ -5,6 +5,7 @@
 
 #include "sle_solver.h"
 #include "nsv_ode_solver.h"
+#include "types.h"
 
 namespace atg_scs {
     class OptimizedNsvRigidBodySystem : public RigidBodySystem {
@@ -13,16 +14,16 @@ namespace atg_scs {
             virtual ~OptimizedNsvRigidBodySystem();
 
             void initialize(SleSolver *sleSolver);
-            virtual void process(double dt, int steps = 1);
+            virtual void process(real_t dt, int steps = 1);
 
-            inline double timeElapsed() const { return m_t; }
+            inline real_t timeElapsed() const { return m_t; }
 
-            double m_biasFactor;
+            real_t m_biasFactor;
 
         protected:
             void propagateResults();
             void processConstraints(
-                    double dt,
+                    real_t dt,
                     long long *evalTime,
                     long long *solveTime);
 
@@ -30,7 +31,7 @@ namespace atg_scs {
             NsvOdeSolver m_odeSolver;
             SleSolver *m_sleSolver;
 
-            double m_t;
+            real_t m_t;
 
         protected:
             struct IntermediateValues {

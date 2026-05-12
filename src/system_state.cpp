@@ -49,26 +49,26 @@ void atg_scs::SystemState::copy(const SystemState *state) {
 
     std::memcpy((void *)indexMap, (void *)state->indexMap, sizeof(int) * n_c);
 
-    std::memcpy((void *)a_theta, (void *)state->a_theta, sizeof(double) * n);
-    std::memcpy((void *)v_theta, (void *)state->v_theta, sizeof(double) * n);
-    std::memcpy((void *)theta, (void *)state->theta, sizeof(double) * n);
+    std::memcpy((void *)a_theta, (void *)state->a_theta, sizeof(real_t) * n);
+    std::memcpy((void *)v_theta, (void *)state->v_theta, sizeof(real_t) * n);
+    std::memcpy((void *)theta, (void *)state->theta, sizeof(real_t) * n);
 
-    std::memcpy((void *)a_x, (void *)state->a_x, sizeof(double) * n);
-    std::memcpy((void *)a_y, (void *)state->a_y, sizeof(double) * n);
-    std::memcpy((void *)v_x, (void *)state->v_x, sizeof(double) * n);
-    std::memcpy((void *)v_y, (void *)state->v_y, sizeof(double) * n);
-    std::memcpy((void *)p_x, (void *)state->p_x, sizeof(double) * n);
-    std::memcpy((void *)p_y, (void *)state->p_y, sizeof(double) * n);
+    std::memcpy((void *)a_x, (void *)state->a_x, sizeof(real_t) * n);
+    std::memcpy((void *)a_y, (void *)state->a_y, sizeof(real_t) * n);
+    std::memcpy((void *)v_x, (void *)state->v_x, sizeof(real_t) * n);
+    std::memcpy((void *)v_y, (void *)state->v_y, sizeof(real_t) * n);
+    std::memcpy((void *)p_x, (void *)state->p_x, sizeof(real_t) * n);
+    std::memcpy((void *)p_y, (void *)state->p_y, sizeof(real_t) * n);
 
-    std::memcpy((void *)f_x, (void *)state->f_x, sizeof(double) * n);
-    std::memcpy((void *)f_y, (void *)state->f_y, sizeof(double) * n);
-    std::memcpy((void *)t, (void *)state->t, sizeof(double) * n);
+    std::memcpy((void *)f_x, (void *)state->f_x, sizeof(real_t) * n);
+    std::memcpy((void *)f_y, (void *)state->f_y, sizeof(real_t) * n);
+    std::memcpy((void *)t, (void *)state->t, sizeof(real_t) * n);
 
-    std::memcpy((void *)m, (void *)state->m, sizeof(double) * n);
+    std::memcpy((void *)m, (void *)state->m, sizeof(real_t) * n);
 
-    std::memcpy((void *)r_x, (void *)state->r_x, sizeof(double) * n_c * 2);
-    std::memcpy((void *)r_y, (void *)state->r_y, sizeof(double) * n_c * 2);
-    std::memcpy((void *)r_t, (void *)state->r_t, sizeof(double) * n_c * 2);
+    std::memcpy((void *)r_x, (void *)state->r_x, sizeof(real_t) * n_c * 2);
+    std::memcpy((void *)r_y, (void *)state->r_y, sizeof(real_t) * n_c * 2);
+    std::memcpy((void *)r_t, (void *)state->r_t, sizeof(real_t) * n_c * 2);
 }
 
 void atg_scs::SystemState::resize(int bodyCount, int constraintCount) {
@@ -83,26 +83,26 @@ void atg_scs::SystemState::resize(int bodyCount, int constraintCount) {
 
     indexMap = new int[n_c];
 
-    a_theta = new double[n];
-    v_theta = new double[n];
-    theta = new double[n];
+    a_theta = new real_t[n];
+    v_theta = new real_t[n];
+    theta = new real_t[n];
 
-    a_x = new double[n];
-    a_y = new double[n];
-    v_x = new double[n];
-    v_y = new double[n];
-    p_x = new double[n];
-    p_y = new double[n];
+    a_x = new real_t[n];
+    a_y = new real_t[n];
+    v_x = new real_t[n];
+    v_y = new real_t[n];
+    p_x = new real_t[n];
+    p_y = new real_t[n];
 
-    f_x = new double[n];
-    f_y = new double[n];
-    t = new double[n];
+    f_x = new real_t[n];
+    f_y = new real_t[n];
+    t = new real_t[n];
 
-    m = new double[n];
+    m = new real_t[n];
 
-    r_x = new double[(size_t)n_c * 2];
-    r_y = new double[(size_t)n_c * 2];
-    r_t = new double[(size_t)n_c * 2];
+    r_x = new real_t[(size_t)n_c * 2];
+    r_y = new real_t[(size_t)n_c * 2];
+    r_t = new real_t[(size_t)n_c * 2];
 }
 
 void atg_scs::SystemState::destroy() {
@@ -138,49 +138,49 @@ void atg_scs::SystemState::destroy() {
 }
 
 void atg_scs::SystemState::localToWorld(
-        double x,
-        double y,
-        double *x_t,
-        double *y_t,
+        real_t x,
+        real_t y,
+        real_t *x_t,
+        real_t *y_t,
         int body)
 {
-    const double x0 = p_x[body];
-    const double y0 = p_y[body];
-    const double theta = this->theta[body];
+    const real_t x0 = p_x[body];
+    const real_t y0 = p_y[body];
+    const real_t theta = this->theta[body];
 
-    const double cos_theta = std::cos(theta);
-    const double sin_theta = std::sin(theta);
+    const real_t cos_theta = std::cos(theta);
+    const real_t sin_theta = std::sin(theta);
 
     *x_t = cos_theta * x - sin_theta * y + x0;
     *y_t = sin_theta * x + cos_theta * y + y0;
 }
 
 void atg_scs::SystemState::velocityAtPoint(
-        double x,
-        double y,
-        double *v_x,
-        double *v_y,
+        real_t x,
+        real_t y,
+        real_t *v_x,
+        real_t *v_y,
         int body)
 {
-    double w_x, w_y;
+    real_t w_x, w_y;
     localToWorld(x, y, &w_x, &w_y, body);
 
-    const double v_theta = this->v_theta[body];
-    const double angularToLinear_x = -v_theta * (w_y - this->p_y[body]);
-    const double angularToLinear_y = v_theta * (w_x - this->p_x[body]);
+    const real_t v_theta = this->v_theta[body];
+    const real_t angularToLinear_x = -v_theta * (w_y - this->p_y[body]);
+    const real_t angularToLinear_y = v_theta * (w_x - this->p_x[body]);
 
     *v_x = this->v_x[body] + angularToLinear_x;
     *v_y = this->v_y[body] + angularToLinear_y;
 }
 
 void atg_scs::SystemState::applyForce(
-    double x_l,
-    double y_l,
-    double f_x,
-    double f_y,
+    real_t x_l,
+    real_t y_l,
+    real_t f_x,
+    real_t f_y,
     int body)
 {
-    double w_x, w_y;
+    real_t w_x, w_y;
     localToWorld(x_l, y_l, &w_x, &w_y, body);
 
     this->f_x[body] += f_x;

@@ -10,8 +10,8 @@ void verify(atg_scs::SystemState *state, atg_scs::Constraint *constraint) {
     const int n = constraint->m_bodyCount;
     const int m = constraint->getConstraintCount();
 
-    const double d = 0.1;
-    const double dt = 0.001;
+    const real_t d = 0.1;
+    const real_t dt = 0.001;
 
     for (int i = 0; i < m; ++i) {
         std::cerr << "Constraint " << i << "\n";
@@ -19,19 +19,19 @@ void verify(atg_scs::SystemState *state, atg_scs::Constraint *constraint) {
             std::cerr << "q" << j + 1 << "\n";
 
             const int q_i = j % 3;
-            double *q[] = {
+            real_t *q[] = {
                 state->p_x,
                 state->p_y,
                 state->theta
             };
 
-            double *q_dot[] = {
+            real_t *q_dot[] = {
                 state->v_x,
                 state->v_y,
                 state->v_theta
             };
 
-            const double v0 = q[q_i][j / 3];
+            const real_t v0 = q[q_i][j / 3];
             q_dot[q_i][j / 3] = d;
             constraint->calculate(&o0, state);
             q[q_i][j / 3] += d * dt;
@@ -39,13 +39,13 @@ void verify(atg_scs::SystemState *state, atg_scs::Constraint *constraint) {
             q[q_i][j / 3] = v0;
             q_dot[q_i][j / 3] = 0;
 
-            const double dC = (o1.C[i] - o0.C[i]) / (d * dt);
+            const real_t dC = (o1.C[i] - o0.C[i]) / (d * dt);
             EXPECT_NEAR(dC, (o0.J[i][j] + o1.J[i][j]) / 2, 1E-4);
 
             for (int k = 0; k < n * 3; ++k) {
                 for (int l = 0; l < m; ++l) {
                     std::cerr << l << ", " << k << "\n";
-                    const double J_dot = (o1.J[l][k] - o0.J[l][k]) / dt;
+                    const real_t J_dot = (o1.J[l][k] - o0.J[l][k]) / dt;
                     EXPECT_NEAR(J_dot, (o0.J_dot[l][k] + o1.J_dot[l][k]) / 2, 1E-4);
                 }
             }
@@ -77,9 +77,9 @@ TEST(RollingConstraintTests, RollingConstraintTest) {
 
     std::mt19937 rng;
     rng.seed(0);
-    std::uniform_real_distribution<double> realDist;
+    std::uniform_real_distribution<real_t> realDist;
 
-    const double d = 0.001;
+    const real_t d = 0.001;
     for (int i = 0; i < 10; ++i) {
         system.p_x[0] = (realDist(rng) - 0.5) * 100;
         system.p_x[1] = (realDist(rng) - 0.5) * 100;

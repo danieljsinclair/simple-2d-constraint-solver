@@ -1,6 +1,9 @@
 #include "../include/rigid_body.h"
+#include "../../../../include/fast_math.h"
 
 #include <cmath>
+
+using atg_scs::real_t;
 
 atg_scs::RigidBody::RigidBody() {
     index = -1;
@@ -11,35 +14,35 @@ atg_scs::RigidBody::~RigidBody() {
     /* void */
 }
 
-double atg_scs::RigidBody::energy() const {
-    const double speed_2 = v_x * v_x + v_y * v_y;
-    const double E_k = 0.5 * m * speed_2;
-    const double E_r = 0.5 * I * v_theta * v_theta;
+atg_scs::real_t atg_scs::RigidBody::energy() const {
+    const real_t speed_2 = v_x * v_x + v_y * v_y;
+    const real_t E_k = 0.5 * m * speed_2;
+    const real_t E_r = 0.5 * I * v_theta * v_theta;
 
     return E_k + E_r;
 }
 
 void atg_scs::RigidBody::localToWorld(
-        double x,
-        double y,
-        double *w_x,
-        double *w_y)
+        real_t x,
+        real_t y,
+        real_t *w_x,
+        real_t *w_y)
 {
-    const double cos_theta = std::cos(theta);
-    const double sin_theta = std::sin(theta);
+    const real_t cos_theta = fast_math::cos(theta);
+    const real_t sin_theta = fast_math::sin(theta);
 
     *w_x = cos_theta * x - sin_theta * y + p_x;
     *w_y = sin_theta * x + cos_theta * y + p_y;
 }
 
 void atg_scs::RigidBody::worldToLocal(
-        double x,
-        double y,
-        double *l_x,
-        double *l_y)
+        real_t x,
+        real_t y,
+        real_t *l_x,
+        real_t *l_y)
 {
-    const double cos_theta = std::cos(theta);
-    const double sin_theta = std::sin(theta);
+    const real_t cos_theta = fast_math::cos(theta);
+    const real_t sin_theta = fast_math::sin(theta);
 
     *l_x = cos_theta * (x - p_x) + sin_theta * (y - p_y);
     *l_y = -sin_theta * (x - p_x) + cos_theta * (y - p_y);

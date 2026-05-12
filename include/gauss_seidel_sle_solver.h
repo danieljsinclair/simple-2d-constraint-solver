@@ -2,6 +2,7 @@
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_SEIDEL_SLE_SOLVER_H
 
 #include "sle_solver.h"
+#include "types.h"
 
 namespace atg_scs {
     class GaussSeidelSleSolver : public SleSolver {
@@ -24,15 +25,15 @@ namespace atg_scs {
                 Matrix *previous);
 
             int m_maxIterations;
-            double m_minDelta;
+            real_t m_minDelta;
 
         protected:
-            double solveIteration(
+            real_t solveIteration(
                     Matrix &left,
                     Matrix &right,
                     Matrix *result,
                     Matrix *previous);
-            double solveIteration(
+            real_t solveIteration(
                     Matrix &left,
                     Matrix &right,
                     Matrix &limits,

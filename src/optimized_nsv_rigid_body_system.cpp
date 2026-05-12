@@ -34,7 +34,7 @@ void atg_scs::OptimizedNsvRigidBodySystem::initialize(SleSolver *sleSolver) {
     m_sleSolver = sleSolver;
 }
 
-void atg_scs::OptimizedNsvRigidBodySystem::process(double dt, int steps) {
+void atg_scs::OptimizedNsvRigidBodySystem::process(real_t dt, int steps) {
     long long
         odeSolveTime = 0,
         constraintSolveTime = 0,
@@ -114,7 +114,7 @@ void atg_scs::OptimizedNsvRigidBodySystem::propagateResults() {
 }
 
 void atg_scs::OptimizedNsvRigidBodySystem::processConstraints(
-        double dt,
+        real_t dt,
         long long *evalTime,
         long long *solveTime)
 {
@@ -258,8 +258,8 @@ void atg_scs::OptimizedNsvRigidBodySystem::processConstraints(
     }
 
     for (int i = 0; i < n; ++i) {
-        const double invMass = m_iv.M_inv.get(0, i * 3 + 0);
-        const double invInertia = m_iv.M_inv.get(0, i * 3 + 2);
+        const real_t invMass = m_iv.M_inv.get(0, i * 3 + 0);
+        const real_t invInertia = m_iv.M_inv.get(0, i * 3 + 2);
 
         m_state.a_x[i] *= invMass;
         m_state.a_y[i] *= invMass;

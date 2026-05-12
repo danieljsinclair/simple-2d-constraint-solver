@@ -4,6 +4,7 @@
 #include "force_generator.h"
 
 #include "rigid_body.h"
+#include "types.h"
 
 namespace atg_scs {
     class Spring : public ForceGenerator {
@@ -13,18 +14,18 @@ namespace atg_scs {
 
             virtual void apply(SystemState *state);
             
-            void getEnds(double *x_1, double *y_1, double *x_2, double *y_2);
-            double energy() const;
+            void getEnds(real_t *x_1, real_t *y_1, real_t *x_2, real_t *y_2);
+            real_t energy() const;
 
-            double m_restLength;
-            double m_ks;
-            double m_kd;
+            real_t m_restLength;
+            real_t m_ks;
+            real_t m_kd;
 
-            double m_p1_x;
-            double m_p1_y;
+            real_t m_p1_x;
+            real_t m_p1_y;
 
-            double m_p2_x;
-            double m_p2_y;
+            real_t m_p2_x;
+            real_t m_p2_y;
 
             RigidBody *m_body1;
             RigidBody *m_body2;

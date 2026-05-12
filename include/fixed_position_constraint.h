@@ -2,6 +2,7 @@
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_FIXED_POSITION_CONSTRAINT_H
 
 #include "constraint.h"
+#include "types.h"
 
 namespace atg_scs {
     class FixedPositionConstraint : public Constraint {
@@ -11,17 +12,17 @@ namespace atg_scs {
             
             void setBody(RigidBody *body) { m_bodies[0] = body; }
 
-            void setWorldPosition(double x, double y);
-            void setLocalPosition(double x, double y);
+            void setWorldPosition(real_t x, real_t y);
+            void setLocalPosition(real_t x, real_t y);
 
             virtual void calculate(Output *output, SystemState *system);
 
-            double m_local_x;
-            double m_local_y;
-            double m_world_x;
-            double m_world_y;
-            double m_ks;
-            double m_kd;
+            real_t m_local_x;
+            real_t m_local_y;
+            real_t m_world_x;
+            real_t m_world_y;
+            real_t m_ks;
+            real_t m_kd;
     };
 } /* namespace atg_scs */
 

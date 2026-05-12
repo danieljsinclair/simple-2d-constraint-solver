@@ -2,9 +2,9 @@
 
 #include "../include/rk4_ode_solver.h"
 
-void rk4Solve(int steps, double t, atg_scs::SystemState *state) {
+void rk4Solve(int steps, real_t t, atg_scs::SystemState *state) {
     atg_scs::Rk4OdeSolver solver;
-    const double dt = t / steps;
+    const real_t dt = t / steps;
 
     for (int i = 0; i < steps; ++i) {
         solver.start(state, dt);
