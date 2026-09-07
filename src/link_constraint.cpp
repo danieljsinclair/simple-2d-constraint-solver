@@ -1,5 +1,4 @@
 #include "../include/link_constraint.h"
-#include "../../../../include/fast_math.h"
 
 #include <limits>
 #include <cmath>
@@ -34,11 +33,11 @@ void atg_scs::LinkConstraint::calculate(
     const real_t q3_dot = state->v_theta[body];
     const real_t q6_dot = state->v_theta[linkedBody];
 
-    const real_t cos_q3 = fast_math::cos(q3);
-    const real_t sin_q3 = fast_math::sin(q3);
+    const real_t cos_q3 = std::cos(q3);
+    const real_t sin_q3 = std::sin(q3);
 
-    const real_t cos_q6 = fast_math::cos(q6);
-    const real_t sin_q6 = fast_math::sin(q6);
+    const real_t cos_q6 = std::cos(q6);
+    const real_t sin_q6 = std::sin(q6);
 
     const real_t bodyX = q1 + cos_q3 * m_local_x_1 - sin_q3 * m_local_y_1;
     const real_t bodyY = q2 + sin_q3 * m_local_x_1 + cos_q3 * m_local_y_1;

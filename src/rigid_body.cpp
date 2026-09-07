@@ -1,5 +1,4 @@
 #include "../include/rigid_body.h"
-#include "../../../../include/fast_math.h"
 
 #include <cmath>
 
@@ -28,8 +27,8 @@ void atg_scs::RigidBody::localToWorld(
         real_t *w_x,
         real_t *w_y)
 {
-    const real_t cos_theta = fast_math::cos(theta);
-    const real_t sin_theta = fast_math::sin(theta);
+    const real_t cos_theta = std::cos(theta);
+    const real_t sin_theta = std::sin(theta);
 
     *w_x = cos_theta * x - sin_theta * y + p_x;
     *w_y = sin_theta * x + cos_theta * y + p_y;
@@ -41,8 +40,8 @@ void atg_scs::RigidBody::worldToLocal(
         real_t *l_x,
         real_t *l_y)
 {
-    const real_t cos_theta = fast_math::cos(theta);
-    const real_t sin_theta = fast_math::sin(theta);
+    const real_t cos_theta = std::cos(theta);
+    const real_t sin_theta = std::sin(theta);
 
     *l_x = cos_theta * (x - p_x) + sin_theta * (y - p_y);
     *l_y = -sin_theta * (x - p_x) + cos_theta * (y - p_y);
